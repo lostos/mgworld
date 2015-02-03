@@ -3,7 +3,7 @@
 (function () {
 
     var Currency = function (v) {
-        this.val = v;
+        this.val = v ? v : 0;
     };
 
     Currency.prototype.equals = function (c) {

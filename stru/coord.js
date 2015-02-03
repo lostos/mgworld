@@ -2,9 +2,9 @@
 
 (function () {
     var Coordinate = function (x, y, z) {
-        this.x = x;
-        this.y = y;
-        this.z = z;
+        this.x = x ? x : 0;
+        this.y = y ? y : 0;
+        this.z = z ? z : 0;
     };
 
     Coordinate.prototype.coordinates = function (i) {

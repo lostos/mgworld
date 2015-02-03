@@ -1,5 +1,7 @@
 'use strict';
 
+global.__base = __dirname + '/';
+
 var PORT = 33333;
 var HOST = '127.0.0.1';
 
@@ -23,5 +25,6 @@ server.on('message', function (message, remote) {
 
 server.bind(PORT, HOST);
 
-var main = require('/main');
+var Main = require('./main');
+var main = new Main();
 main.run();

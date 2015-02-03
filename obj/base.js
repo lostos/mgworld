@@ -2,9 +2,10 @@
 
 (function () {
 
-    var ComUtil = require('/util/comutil');
+    var ComUtil = require(__base + 'util/comutil');
+    var Coordinate = require(__base + 'stru/coord');
 
-    var Base = new function (args) {
+    var Base = function (args) {
         this._id = args._id ? args._id : ComUtil.genId();
         this.position = new Coordinate(args.x, args.y, args.z);
     };

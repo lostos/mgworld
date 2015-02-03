@@ -3,9 +3,9 @@
 (function () {
     var util = require("util");
 
-    var Base = require('/obj/base');
-    var Coordinate = require('/stru/coord');
-    var Currency = require('/stru/cur');
+    var Base = require(__base + 'obj/base');
+    var Coordinate = require(__base + 'stru/coord');
+    var Currency = require(__base + 'stru/cur');
 
     var Building = function (args) {
         Base.apply(this, arguments);

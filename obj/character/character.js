@@ -3,9 +3,9 @@
 (function () {
     var util = require("util");
 
-    var Base = require('/obj/base');
+    var Base = require(__base + 'obj/base');
 
-    var Character = new function (args) {
+    var Character = function (args) {
         Base.apply(this, arguments);
 
         this.name = args.name;
@@ -16,7 +16,7 @@
         this.happiness = args.happiness;
     };
 
-    util.inherits(Building, Base);
+    util.inherits(Character, Base);
 
     module.exports = Character;
 })();
