@@ -66,6 +66,11 @@
         this.mapWorld[indexToKey(world.xIndex, world.yIndex)] = world;
     };
 
+    WorldCollection.prototype.get = function (xIndex, yIndex) {
+        var key = indexToKey(xIndex, yIndex);
+        return this.mapWorld[key];
+    };
+
     WorldCollection.prototype.addObject = function (object) {
         var key = xyToKey(object.x, object.y);
         var world = this.mapWorld[key];

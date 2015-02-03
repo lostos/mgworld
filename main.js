@@ -7,9 +7,11 @@
     var WorldCollection = world.WorldCollection;
 
     var MapGener = require(__base + 'util/mapgener');
+    var Loader = require(__base + 'data/loader');
 
     var Main = function () {
         this.worldCollection = new WorldCollection();
+        this.loader = new Loader('./db');
     };
 
     Main.prototype.addObject = function (object) {
@@ -24,6 +26,13 @@
             'maxY': 100,
             'count': 10,
             'worldCollection': this.worldCollection
+        });
+
+        this.loader.save(this, {
+            'minXIndex': 0,
+            'maxXIndex': 1,
+            'minYIndex': 0,
+            'maxYIndex': 1
         });
     };
 

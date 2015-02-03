@@ -4,10 +4,11 @@
 
     var COLLECTION_PREFIX = 'sv_world';
 
+    var Engine = require('tingodb')();
+
     var Loader = function (dbPath) {
         this.dbPath = dbPath;
         this.db = new Engine.Db(dbPath, {});
-
     };
 
     Loader.prototype.load = function (main, args) {
@@ -32,23 +33,25 @@
                 var collectionName = COLLECTION_PREFIX + '_' + i + '_' + j;
                 var collection = this.db.collection(collectionName);
                 if (collection) {
-                    main.worlds.forEach(function (world, index) {
-                        if (world.xIndex == i && world.yIndex == j) {
-                            world.objects.forEach(function (object, index) {
-                                collection.findAndModify({
+                    var world = main.worldCollection.get(i, j);
+                    if (world) {
+                        world.objects.forEach(function (object, index) {
+                            collection.findAndModify({
                                     '_id': object._id
-                                }, {
-                                    '_id': 'asc'
-                                }, object, {
+                                }, {},
+                                object, {
                                     'upsert': true
-                                })
-                            });
+                                }, function (err, doc) {
 
-                            return false; // break;
-                        }
-                    });
+                                });
+                        });
+                    }
+
+                    return false; // break;
                 }
             }
         }
     };
+
+    module.exports = Loader;
 })();
