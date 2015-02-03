@@ -1,0 +1,17 @@
+{
+  "name": "mgworld",
+  "version": "0.0.1",
+  "description": "gfwdns",
+  "main": "app.js",
+  "author": {
+    "name": "magnww",
+    "email": "vilosantos@gmail.com"
+  },
+  "dependencies": {
+    "tingodb": ">=0.3.4"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/magnww/mgworld.git"
+  }
+}
