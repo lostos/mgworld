@@ -8,6 +8,8 @@
     var Character = function (args) {
         Base.apply(this, arguments);
 
+        this.mgType = 'character/character';
+
         this.name = ComUtil.nullToEmpty(args.name);
         this.cash = ComUtil.nullToEmpty(args.cash);
 

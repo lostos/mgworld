@@ -28,11 +28,17 @@
             'worldCollection': this.worldCollection
         });
 
-        this.loader.save(this, {
-            'minXIndex': 0,
-            'maxXIndex': 1,
-            'minYIndex': 0,
-            'maxYIndex': 1
+        this.loader.saveWorld({
+            'worldCollection': this.worldCollection,
+            'xIndex': 0,
+            'yIndex': 0
+        });
+
+        this.loader.loadWorld({
+            'xIndex': 0,
+            'yIndex': 0
+        }, function (world) {
+            this.worldCollection.add(world);
         });
     };
 

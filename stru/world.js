@@ -33,14 +33,23 @@
 
     /* World */
     var World = function (args) {
-        this.minX = args.minX;
-        this.maxX = args.maxX;
-        this.minY = args.minY;
-        this.maxY = args.maxY;
+        if (args.xIndex != null && args.yIndex != null) {
+            this.minX = args.xIndex * SIZE;
+            this.maxX = (args.xIndex + 1) * SIZE;
+            this.minY = args.yIndex * SIZE;
+            this.maxY = (args.yIndex + 1) * SIZE;
+            this.xIndex = args.xIndex;
+            this.yIndex = args.yIndex;
+        } else {
+            this.minX = args.minX;
+            this.maxX = args.maxX;
+            this.minY = args.minY;
+            this.maxY = args.maxY;
+            var index = xyToIndex(this.minX, this.minY);
+            this.xIndex = index.xIndex;
+            this.yIndex = index.yIndex;
+        }
 
-        var index = xyToIndex(this.minX, this.minY);
-        this.xIndex = index.xIndex;
-        this.yIndex = index.yIndex;
 
         this.objects = [];
     };
@@ -49,7 +58,7 @@
         if (object instanceof ObjectBase) {
             this.objects.push(object);
         } else if (object.mgType) {
-            var ObjType = require(__base + object.mgType);
+            var ObjType = require(__base + 'obj/' + object.mgType);
             var obj = new ObjType(object);
             this.objects.push(obj);
         }
@@ -62,13 +71,32 @@
         this.mapWorld = {};
     };
 
+    /**
+     * 添加world对象
+     * @param world
+     */
     WorldCollection.prototype.add = function (world) {
         this.mapWorld[indexToKey(world.xIndex, world.yIndex)] = world;
     };
 
+    /**
+     * 获取world对象
+     * @param xIndex
+     * @param yIndex
+     * @returns {World}
+     */
     WorldCollection.prototype.get = function (xIndex, yIndex) {
         var key = indexToKey(xIndex, yIndex);
         return this.mapWorld[key];
+    };
+
+    WorldCollection.prototype.each = function (func) {
+        var index = 0;
+        for (var i in mapWorld) {
+            if (mapWorld.hasOwnProperty(i)) {
+                func.apply(this, [mapWorld[i], index++]);
+            }
+        }
     };
 
     WorldCollection.prototype.addObject = function (object) {

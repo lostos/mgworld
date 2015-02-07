@@ -10,6 +10,8 @@
     var Building = function (args) {
         Base.apply(this, arguments);
 
+        this.mgType = 'building/building';
+
         this.balance = new Currency(args.bal);
         this.estate = new Currency(args.est);
         this.estateMulti = ComUtil.nullToEmpty(args.estMul);

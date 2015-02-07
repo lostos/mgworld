@@ -12,8 +12,8 @@
             var worldCollection = args.worldCollection;
 
             var mgTypes = [
-                'obj/building/building',
-                'obj/character/character'
+                'building/building',
+                'character/character'
             ];
 
             var num = 0;
