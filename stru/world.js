@@ -59,9 +59,24 @@
             this.objects.push(object);
         } else if (object.mgType) {
             var ObjType = require(__base + 'obj/' + object.mgType);
-            var obj = new ObjType(object);
+            var obj = ObjType.create(object);
             this.objects.push(obj);
         }
+    };
+
+    World.prototype.get = function (x, y) {
+        var result = [];
+        this.objects.forEach(function (obj) {
+            if (obj.x == x && obj.y == y) {
+                result.push(obj);
+            }
+        });
+
+        return result;
+    };
+
+    World.prototype.each = function (func) {
+        this.objects.forEach(func);
     };
 
     /* end World */
@@ -92,9 +107,9 @@
 
     WorldCollection.prototype.each = function (func) {
         var index = 0;
-        for (var i in mapWorld) {
-            if (mapWorld.hasOwnProperty(i)) {
-                func.apply(this, [mapWorld[i], index++]);
+        for (var i in this.mapWorld) {
+            if (this.mapWorld.hasOwnProperty(i)) {
+                func.apply(this, [this.mapWorld[i], index++]);
             }
         }
     };
@@ -108,6 +123,16 @@
         }
 
         world.add(object);
+    };
+
+    WorldCollection.prototype.getObjects = function (x, y) {
+        var key = xyToKey(x, y);
+        var world = this.mapWorld[key];
+        if (!world) {
+            return world.get(x, y);
+        } else {
+            return [];
+        }
     };
 
     /* end WordCollection */

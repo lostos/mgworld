@@ -1,24 +1,24 @@
 'use strict';
 
 (function () {
-    var util = require("util");
     var ComUtil = require(__base + "util/comutil");
-    var Base = require(__base + 'obj/base');
+    var SmartObj = require(__base + 'obj/smartobj');
 
-    var Character = function (args) {
-        Base.apply(this, arguments);
+    var Character = SmartObj.extend({
+        moveable: true,
+        ctor: function (args) {
+            this._super.apply(this, arguments);
 
-        this.mgType = 'character/character';
+            this.mgType = 'character/character';
 
-        this.name = ComUtil.nullToEmpty(args.name);
-        this.cash = ComUtil.nullToEmpty(args.cash);
+            this.name = ComUtil.nullToEmpty(args.name);
+            this.cash = ComUtil.nullToEmpty(args.cash);
 
-        this.ability = ComUtil.nullToEmpty(args.ability);
-        this.power = ComUtil.nullToEmpty(args.power);
-        this.happiness = ComUtil.nullToEmpty(args.happiness);
-    };
-
-    util.inherits(Character, Base);
+            this.ability = ComUtil.nullToEmpty(args.ability);
+            this.power = ComUtil.nullToEmpty(args.power);
+            this.happiness = ComUtil.nullToEmpty(args.happiness);
+        }
+    });
 
     module.exports = Character;
 })();

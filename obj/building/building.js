@@ -1,24 +1,23 @@
 'use strict';
 
 (function () {
-    var util = require("util");
     var ComUtil = require(__base + "util/comutil");
-    var Base = require(__base + 'obj/base');
+    var SmartObj = require(__base + 'obj/smartobj');
     var Coordinate = require(__base + 'stru/coord');
     var Currency = require(__base + 'stru/cur');
 
-    var Building = function (args) {
-        Base.apply(this, arguments);
+    var Building = SmartObj.extend({
+        ctor: function (args) {
+            this._super.apply(this, arguments);
 
-        this.mgType = 'building/building';
+            this.mgType = 'building/building';
 
-        this.balance = new Currency(args.bal);
-        this.estate = new Currency(args.est);
-        this.estateMulti = ComUtil.nullToEmpty(args.estMul);
-        this.ownerId = ComUtil.nullToEmpty(args.ownerId);
-    };
-
-    util.inherits(Building, Base);
+            this.balance = new Currency(args.bal);
+            this.estate = new Currency(args.est);
+            this.estateMulti = ComUtil.nullToEmpty(args.estMul);
+            this.ownerId = ComUtil.nullToEmpty(args.ownerId);
+        }
+    });
 
     module.exports = Building;
 })();
