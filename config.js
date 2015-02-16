@@ -2,6 +2,7 @@
 
 mg.config = {
     classReleaseMode: false,
+    dbPath: './db',
     freq: {
         update: 1 / 12,
         push: 1 / 4,

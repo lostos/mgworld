@@ -2,26 +2,38 @@
 
 (function () {
 
-    var Engine = require('tingodb')();
-    var ObjectID = Engine.ObjectID;
-
-    var guid = (function () {
-        function s4() {
-            return Math.floor((1 + Math.random()) * 0x10000)
-                .toString(16)
-                .substring(1);
-        }
-
-        return function () {
-            return s4() + s4() + s4() + s4() +
-                s4() + s4() + s4() + s4();
-        };
-    })();
-
+    var idCounter = {};
     mg.util = mg.util || {};
     mg.util.ComUtil = {
-        genId: function () {
-            return guid();
+        initCounter: function () {
+            var collection = mg.database.collection('counters');
+            collection.find().toArray(function (err, docs) {
+                docs.forEach(function (doc) {
+                    idCounter[doc._id] = doc.seq;
+                });
+            });
+        },
+        saveCounter: function () {
+            var collection = mg.database.collection('counters');
+            for (var cls in idCounter) {
+                collection.findAndModify(
+                    {'_id': cls},
+                    {},
+                    {'$set': {'seq': idCounter[cls]}},
+                    {'upsert': true},
+                    function (err, doc) {
+                    }
+                )
+            }
+        },
+        genId: function (cls) {
+            cls = cls || 'obj';
+
+            if (null == idCounter[cls]) {
+                idCounter[cls] = 0;
+            }
+
+            return idCounter[cls]++;
         },
         nullToEmpty: function (value) {
             return value ? value : '';

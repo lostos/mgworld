@@ -47,12 +47,16 @@
             }
             var data = [];
             worldCollection.eachObject(function (obj) {
-                data.push({
+                var d = {
                     'id': obj._id,
                     'x': obj.position.x,
                     'y': obj.position.y,
-                    'act': obj.action.current
-                });
+                    'm': obj.moveable ? '1' : '0'
+                };
+                if (obj.moveable) {
+                    d.act = obj.action.current
+                }
+                data.push(d);
             });
 
             return data;

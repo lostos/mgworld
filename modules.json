@@ -8,6 +8,7 @@
     "util/tmxmap.js",
     "util/queue.js",
 
+    "data/database.js",
     "data/loader.js",
     "main/main.js",
     "main/websocketserver.js",

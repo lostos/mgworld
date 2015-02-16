@@ -5,10 +5,8 @@
     mg.data = mg.data || {};
     mg.data.Loader = mg.Class.extend({
         COLLECTION_PREFIX: 'sv_world',
-        ctor: function (dbPath) {
+        ctor: function () {
 
-            var Engine = require('tingodb')();
-            this.db = new Engine.Db(dbPath, {});
         },
         /**
          * 加载world
@@ -22,7 +20,7 @@
             }
 
             var collectionName = this._getCollectionName(args.xIndex, args.yIndex);
-            var collection = this.db.collection(collectionName);
+            var collection = mg.database.collection(collectionName);
             if (collection) {
                 collection.find().toArray(function (err, docs) {
                     if (err == null) {
@@ -52,13 +50,14 @@
             }
 
             var collectionName = this._getCollectionName(args.xIndex, args.yIndex);
-            var collection = this.db.collection(collectionName);
+            var collection = mg.database.collection(collectionName);
             if (collection) {
                 world.objects.forEach(function (object) {
                     collection.findAndModify({
                             '_id': object._id
                         }, {},
                         object, {
+                            'new': true,
                             'upsert': true
                         }, function (err, doc) {
 

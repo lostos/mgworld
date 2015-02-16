@@ -5,10 +5,10 @@
     mg.obj = mg.obj || {};
     mg.obj.Base = mg.Class.extend({
         ctor: function (args) {
-            args = args || {};
+
+            this.mgType = 'Base';
 
             this._id = args._id ? args._id : mg.util.ComUtil.genId();
-            this.mgType = 'Base';
 
             if (args.x != null && args.y != null) {
                 this.position = new mg.stru.Coordinate(args);
