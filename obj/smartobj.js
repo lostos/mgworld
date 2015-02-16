@@ -10,8 +10,8 @@
     mg.obj.SmartObj = mg.obj.Base.extend({
         actions: [],
         moveable: false,
-        ctor: function () {
-            this._super.apply(this, arguments);
+        ctor: function (args) {
+            this._super(args);
 
             this.mgType = 'SmartObj';
             this.actQueue = [];

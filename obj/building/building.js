@@ -4,7 +4,7 @@
 
     mg.obj.Building = mg.obj.SmartObj.extend({
         ctor: function (args) {
-            this._super.apply(this, arguments);
+            this._super(args);
 
             this.mgType = 'Building';
 

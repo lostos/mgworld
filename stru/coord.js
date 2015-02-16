@@ -5,9 +5,9 @@
     mg.stru = mg.stru || {};
     mg.stru.Coordinate = mg.Class.extend({
         ctor: function (x, y, z) {
-            this.x = x ? x : 0;
-            this.y = y ? y : 0;
-            this.z = z ? z : 0;
+            this.x = x || 0;
+            this.y = y || 0;
+            this.z = z || 0;
         },
         coordinates: function (i) {
             switch (i) {

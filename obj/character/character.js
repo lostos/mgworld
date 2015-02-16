@@ -5,7 +5,7 @@
     mg.obj.Character = mg.obj.SmartObj.extend({
         moveable: true,
         ctor: function (args) {
-            this._super.apply(this, arguments);
+            this._super(args);
 
             this.mgType = 'Character';
 
