@@ -9,12 +9,15 @@
 
             this.mgType = 'Character';
 
-            this.name = mg.util.ComUtil.nullToEmpty(args.name);
-            this.cash = mg.util.ComUtil.nullToEmpty(args.cash);
-
-            this.ability = mg.util.ComUtil.nullToEmpty(args.ability);
-            this.power = mg.util.ComUtil.nullToEmpty(args.power);
-            this.happiness = mg.util.ComUtil.nullToEmpty(args.happiness);
+            if (null != args.attributes) {
+                this.attributes = {
+                    name: mg.util.ComUtil.nullToEmpty(args.attributes.name),
+                    cash: mg.util.ComUtil.nullToEmpty(args.attributes.cash),
+                    ability: mg.util.ComUtil.nullToEmpty(args.attributes.ability),
+                    power: mg.util.ComUtil.nullToEmpty(args.attributes.power),
+                    happiness: mg.util.ComUtil.nullToEmpty(args.attributes.happiness)
+                };
+            }
         }
     });
 })();

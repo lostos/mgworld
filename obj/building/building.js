@@ -8,10 +8,14 @@
 
             this.mgType = 'Building';
 
-            this.balance = new mg.stru.Currency(args.bal);
-            this.estate = new mg.stru.Currency(args.est);
-            this.estateMulti = mg.util.ComUtil.nullToEmpty(args.estMul);
-            this.ownerId = mg.util.ComUtil.nullToEmpty(args.ownerId);
+            if (null != args.attributes) {
+                this.attributes = {
+                    balance: new mg.stru.Currency(args.attributes.bal),
+                    estate: new mg.stru.Currency(args.attributes.est),
+                    estateMulti: mg.util.ComUtil.nullToEmpty(args.attributes.estMul),
+                    ownerId: mg.util.ComUtil.nullToEmpty(args.attributes.ownerId)
+                };
+            }
         }
     });
 })();

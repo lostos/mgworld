@@ -43,10 +43,8 @@
 
             // 启动AI
             setInterval(function (main) {
-                main.worldCollection.each(function (world) {
-                    world.each(function (obj) {
-                        main.strategyAI.update(obj);
-                    });
+                main.worldCollection.eachObject(function (obj) {
+                    main.strategyAI.update(obj);
                 });
             }, mg.config.freq.ai * 1000, this);
 
@@ -56,12 +54,10 @@
                 var now = new Date();
                 var t = (now - lastUpdateDate ) / 1000;
                 lastUpdateDate = now;
-                main.worldCollection.each(function (world) {
-                    world.each(function (obj) {
-                        if (obj instanceof mg.obj.SmartObj) {
-                            obj.update(t);
-                        }
-                    });
+                main.worldCollection.eachObject(function (obj) {
+                    if (obj instanceof mg.obj.SmartObj) {
+                        obj.update(t);
+                    }
                 });
             }, mg.config.freq.update * 1000, this);
         }

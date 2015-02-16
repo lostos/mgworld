@@ -92,6 +92,14 @@
                 return [];
             }
         },
+        eachObject: function (func) {
+            var index = 0;
+            this.each(function (world) {
+                world.each(function (obj) {
+                    func.apply(this, [obj, index++]);
+                });
+            });
+        },
         _xyToIndex: function (x, y) {
             return {
                 'xIndex': Math.floor(x >= 0 ? x / this.worldSize : (x - this.worldSize) / this.worldSize),

@@ -19,11 +19,10 @@
             if (obj instanceof mg.obj.SmartObj) {
                 if (obj.moveable && obj.state == mg.obj.state.IDLE) {
                     var routes = this.pathFinding.getRoute(obj.position, target.position);
-                    obj.actQueue.push({
+                    obj.addAction({
                         'type': 'moveto',
                         'routes': routes
                     });
-                    obj.state = mg.obj.state.PROCESS;
                 }
             }
         }

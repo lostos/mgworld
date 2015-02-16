@@ -1,36 +1,30 @@
 {
-"jsList":[
+  "jsList": [
+
     "config.js",
     "util/class.js",
+    "util/comutil.js",
+    "util/mapgener.js",
+    "util/tmxmap.js",
+    "util/queue.js",
 
     "data/loader.js",
-
     "main/main.js",
     "main/websocketserver.js",
-
 
     "ai/pathfinding/minheap.js",
     "ai/pathfinding/pathfinding.js",
     "ai/strategy/strategy.js",
 
-
     "network/handler.js",
-
 
     "obj/base.js",
     "obj/smartobj.js",
     "obj/building/building.js",
     "obj/character/character.js",
 
-
     "stru/coordinate.js",
     "stru/currency.js",
-    "stru/world.js",
-
-
-    "util/comutil.js",
-    "util/mapgener.js",
-    "util/tmxmap.js",
-    "util/worldutil.js"
-]
+    "stru/world.js"
+  ]
 }

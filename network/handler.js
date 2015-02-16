@@ -32,14 +32,30 @@
                     break;
             }
         },
-        update: function (t) {
-            t.clients.forEach(function (client) {
+        update: function (_this) {
+            _this.clients.forEach(function (client) {
                 client.sendFunc.apply(this, [{
                     't': 'regionData',
                     'r': client.region,
-                    'data': t.main.worldCollection.get(client.region.x, client.region.y)
+                    'data': _this._getUpdateData(_this.main.worldCollection)
                 }]);
             });
+        },
+        _getUpdateData: function (worldCollection) {
+            if (null == worldCollection) {
+                return null;
+            }
+            var data = [];
+            worldCollection.eachObject(function (obj) {
+                data.push({
+                    'id': obj._id,
+                    'x': obj.position.x,
+                    'y': obj.position.y,
+                    'act': obj.action.current
+                });
+            });
+
+            return data;
         }
     });
 })();

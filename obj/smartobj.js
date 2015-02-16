@@ -8,22 +8,25 @@
 
     mg.obj = mg.obj || {};
     mg.obj.SmartObj = mg.obj.Base.extend({
-        actions: [],
+        actionTypes: [],
         moveable: false,
         ctor: function (args) {
             this._super(args);
 
             this.mgType = 'SmartObj';
-            this.actQueue = [];
-            this.currAct = null;
 
-            this.state = mg.obj.state.IDLE
+            this.action = {
+                queue: new mg.util.Queue(),
+                current: null
+            };
+            this.state = mg.obj.state.IDLE;
         },
         update: function (ticks) {
-            var act = this.currAct;
+            var act = this.action.current;
             if (null == act) {
-                if (this.actQueue.length > 0) {
-                    act = this.currAct = this.actQueue.splice(0, 1)[0];
+                act = this.action.queue.deQueue();
+                if (null != act) {
+                    this.action.current = act;
                 } else {
                     this.state = mg.obj.state.IDLE;
                     return;
@@ -32,24 +35,31 @@
 
             switch (act.type) {
                 case 'moveto':
+                    this.state = mg.obj.state.MOVING;
                     act.time = (act.time || 0) + ticks * mg.config.obj.moveSpeed;
                     var route = act.routes[0];
+
+                    // 完成动作
                     if (act.time >= route.cost) {
                         this.position.x = route.x;
                         this.position.y = route.y;
 
                         act.routes.splice(0, 1);
                         if (act.routes.length <= 0) {
-                            this.currAct = null;
+                            this.action.current = null;
                         }
                     }
                     break;
             }
+        },
+        addAction: function (action) {
+            this.action.queue.enQueue(action);
+            return this;
         }
     });
 
     mg.obj.state = {
         IDLE: 0,
-        PROCESS: 10
+        MOVING: 10
     };
 })();
