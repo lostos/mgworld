@@ -1,11 +1,11 @@
 'use strict';
 
 (function () {
-    var WorldUtil = {
+
+    mg.util = mg.util || {};
+    mg.util.WorldUtil = {
         genId: function () {
             return new ObjectID();
         }
     };
-
-    module.exports = WorldUtil;
 })();

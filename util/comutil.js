@@ -18,7 +18,8 @@
         };
     })();
 
-    var ComUtil = {
+    mg.util = mg.util || {};
+    mg.util.ComUtil = {
         genId: function () {
             return guid();
         },
@@ -26,6 +27,4 @@
             return value ? value : '';
         }
     };
-
-    module.exports = ComUtil;
 })();

@@ -13,9 +13,9 @@
     var SmartObj = require(__base + 'obj/smartobj');
 
     var Main = function () {
-        this.worldCollection = new WorldCollection();
+        this.worldCollection = new mg.stru.WorldCollection();
         this.loader = new Loader('./db');
-        this.strategyAI = new StrategyAI({
+        this.strategyAI = new mg.ai.StrategyAI({
             'main': this
         });
     };
@@ -25,7 +25,7 @@
     };
 
     Main.prototype.run = function () {
-        MapGener.generate({
+        mg.util.MapGener.generate({
             'minX': 0,
             'maxX': 100,
             'minY': 0,
@@ -54,19 +54,19 @@
                     main.strategyAI.update(obj);
                 });
             });
-        }, __config.freq.ai, this);
+        }, mg.config.freq.ai, this);
 
         // 启动刷新
         var lastUpdateDate = new Date();
         setInterval(function (main) {
             main.worldCollection.each(function (world) {
                 world.each(function (obj) {
-                    if (obj instanceof SmartObj) {
+                    if (obj instanceof mg.obj.SmartObj) {
                         obj.update((new Date() - lastUpdateDate) / 1000);
                     }
                 });
             });
-        }, __config.freq.update, this);
+        }, mg.config.freq.update, this);
     };
 
     module.exports = Main;

@@ -5,19 +5,19 @@
 'use strict';
 
 (function () {
-    var Base = require(__base + 'obj/base');
 
-    var SmartObj = Base.extend({
+    mg.obj = mg.obj || {};
+    mg.obj.SmartObj = mg.obj.Base.extend({
         actions: [],
         moveable: false,
         ctor: function () {
             this._super.apply(this, arguments);
 
-            this.mgType = 'smartobj';
+            this.mgType = 'SmartObj';
             this.actQueue = [];
             this.currAct = null;
 
-            this.state = SmartObj.state.IDLE
+            this.state = mg.obj.state.IDLE
         },
         update: function (ticks) {
             var act = this.currAct;
@@ -25,7 +25,7 @@
                 if (this.actQueue.length > 0) {
                     act = this.currAct = this.actQueue.splice(0, 1)[0];
                 } else {
-                    this.state = SmartObj.state.IDLE;
+                    this.state = mg.obj.state.IDLE;
                     return;
                 }
             }
@@ -48,10 +48,8 @@
         }
     });
 
-    SmartObj.state = {
+    mg.obj.state = {
         IDLE: 0,
         PROCESS: 10
     };
-
-    module.exports = SmartObj;
 })();

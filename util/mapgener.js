@@ -2,7 +2,8 @@
 
 (function () {
 
-    var MapGener = {
+    mg.util = mg.util || {};
+    mg.util.MapGener = {
         generate: function (args) {
             var minX = args.minX;
             var maxX = args.maxX;
@@ -12,8 +13,8 @@
             var worldCollection = args.worldCollection;
 
             var mgTypes = [
-                'building/building',
-                'character/character'
+                'Building',
+                'Character'
             ];
 
             var num = 0;
@@ -28,6 +29,4 @@
             }
         }
     };
-
-    module.exports = MapGener;
 })();

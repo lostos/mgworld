@@ -1,6 +1,7 @@
 'use strict';
 
 global.__base = __dirname + '/';
+global.mg = {};
 
 //var PORT = 33333;
 //var HOST = '127.0.0.1';
@@ -25,8 +26,10 @@ global.__base = __dirname + '/';
 //
 //server.bind(PORT, HOST);
 
-require('./config.js');
-require('./util/class.js');
+var modules = require('./modules');
+modules.jsList.forEach(function (js) {
+    require(__base + js);
+});
 
 var WebServer = require('./websocketserver.js');
 var NetworkHandler = require('./network/handler.js');
@@ -41,19 +44,3 @@ var networkHandler = new NetworkHandler({
 var webServer = new WebServer({
     networkHandler: networkHandler
 });
-
-/* TEST */
-
-var PathFinding = require('./ai/pathfinding/pathfinding.js');
-var pathFinding = new PathFinding();
-var route = pathFinding.getRoute({
-    'x': 0,
-    'y': 0
-}, {
-    'x': 10,
-    'y': 5
-}, function (x, y) {
-    return false;
-});
-
-console.log(JSON.stringify(route));
