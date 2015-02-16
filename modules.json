@@ -16,7 +16,7 @@
     "ai/pathfinding/pathfinding.js",
     "ai/strategy/strategy.js",
 
-    "network/handler.js",
+    "network/networkhandler.js",
 
     "obj/base.js",
     "obj/smartobj.js",

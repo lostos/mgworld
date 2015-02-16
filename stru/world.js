@@ -92,6 +92,13 @@
                 return [];
             }
         },
+        getObjectCount: function () {
+            var count = 0;
+            this.each(function (world) {
+                count += world.objects.length;
+            });
+            return count;
+        },
         eachObject: function (func) {
             var index = 0;
             this.each(function (world) {
