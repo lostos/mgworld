@@ -26,21 +26,20 @@ global.mg = {};
 //
 //server.bind(PORT, HOST);
 
+// 加载模块
 var modules = require('./modules');
 modules.jsList.forEach(function (js) {
     require(__base + js);
 });
 
-var WebServer = require('./websocketserver.js');
-var NetworkHandler = require('./network/handler.js');
-var Main = require('./main');
-
-var main = new Main();
+var main = new mg.main.Main();
 main.run();
 
-var networkHandler = new NetworkHandler({
+var networkHandler = new mg.network.NetworkHandler({
     main: main
 });
-var webServer = new WebServer({
+
+var webServer = new mg.main.WebSocketServer({
     networkHandler: networkHandler
 });
+webServer.run();

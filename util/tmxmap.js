@@ -12,7 +12,7 @@
             this._tmx = fs.readFileSync(tmxFile, "utf8");
         },
         setProperty: function (name, value) {
-            this._tmx = this._tmx.replace('{' + name + '}', value);
+            this._tmx = this._tmx.replace(new RegExp('{' + name + '}', 'g'), value);
         },
         getContent: function () {
             return this._tmx;

@@ -3,8 +3,10 @@
     "config.js",
     "util/class.js",
 
+    "data/loader.js",
 
-    "main.js",
+    "main/main.js",
+    "main/websocketserver.js",
 
 
     "ai/pathfinding/minheap.js",
@@ -12,16 +14,13 @@
     "ai/strategy/strategy.js",
 
 
-    "data/loader.js",
-
-
     "network/handler.js",
 
 
-    "obj/building/building.js",
-    "obj/character/character.js",
     "obj/base.js",
     "obj/smartobj.js",
+    "obj/building/building.js",
+    "obj/character/character.js",
 
 
     "stru/coord.js",

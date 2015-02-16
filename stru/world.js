@@ -92,8 +92,8 @@
         },
         _xyToIndex: function (x, y) {
             return {
-                'xIndex': Math.floor(x > 0 ? x / this.worldSize : (x - this.worldSize) / this.worldSize),
-                'yIndex': Math.floor(y > 0 ? y / this.worldSize : (y - this.worldSize) / this.worldSize)
+                'xIndex': Math.floor(x >= 0 ? x / this.worldSize : (x - this.worldSize) / this.worldSize),
+                'yIndex': Math.floor(y >= 0 ? y / this.worldSize : (y - this.worldSize) / this.worldSize)
             };
         },
         _xyToKey: function (x, y) {

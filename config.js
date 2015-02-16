@@ -1,7 +1,7 @@
 'use strict';
 
 mg.config = {
-    classReleaseMode: false,
+    classReleaseMode: true,
     freq: {
         update: 1 / 12,
         push: 1 / 12,
