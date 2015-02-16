@@ -2,8 +2,6 @@
 <map version="1.0" orientation="orthogonal" renderorder="right-down" width="{width}" height="{height}" tilewidth="32" tileheight="32" nextobjectid="1">
     <tileset firstgid="1" source="terrain.tsx"/>
     <layer name="layer1" width="{width}" height="{height}">
-        <data encoding="base64" compression="zlib">
-            {data}
-        </data>
+        <data encoding="base64" compression="zlib">{data}</data>
     </layer>
 </map>

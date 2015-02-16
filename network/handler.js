@@ -8,7 +8,7 @@
             this.main = args.main;
             this.clients = [];
 
-            setInterval(this.update, mg.config.freq.push, this);
+            setInterval(this.update, mg.config.freq.push * 1000, this);
         },
         onReceiveMessage: function (msg, sendMsgFunc) {
             switch (msg.t) {

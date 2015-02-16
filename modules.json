@@ -23,8 +23,8 @@
     "obj/character/character.js",
 
 
-    "stru/coord.js",
-    "stru/cur.js",
+    "stru/coordinate.js",
+    "stru/currency.js",
     "stru/world.js",
 
 

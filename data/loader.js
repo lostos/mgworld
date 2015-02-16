@@ -8,8 +8,6 @@
         ctor: function (dbPath) {
 
             var Engine = require('tingodb')();
-
-            this.dbPath = dbPath;
             this.db = new Engine.Db(dbPath, {});
         },
         /**
@@ -28,14 +26,7 @@
             if (collection) {
                 collection.find().toArray(function (err, docs) {
                     if (err == null) {
-                        var world = new World({
-                            'xIndex': args.xIndex,
-                            'yIndex': args.yIndex
-                        });
-                        docs.forEach(function (doc) {
-                            world.add(doc);
-                        });
-                        callback.apply(this, [world]);
+                        callback.apply(this, [docs]);
                     }
                 });
             }
@@ -44,6 +35,7 @@
         /**
          * 保存world
          * @param args
+         * @param callback
          * @returns {boolean}
          */
         saveWorld: function (args, callback) {
@@ -62,7 +54,7 @@
             var collectionName = this._getCollectionName(args.xIndex, args.yIndex);
             var collection = this.db.collection(collectionName);
             if (collection) {
-                world.objects.forEach(function (object, index) {
+                world.objects.forEach(function (object) {
                     collection.findAndModify({
                             '_id': object._id
                         }, {},

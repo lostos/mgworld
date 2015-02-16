@@ -21,8 +21,10 @@
             while (num < count) {
                 worldCollection.addObject({
                     'mgType': mgTypes[num % mgTypes.length],
-                    'x': Math.floor(Math.random() * (maxX - minX) + minX),
-                    'y': Math.floor(Math.random() * (maxY - minY) + minY)
+                    'position': {
+                        'x': Math.floor(Math.random() * (maxX - minX) + minX),
+                        'y': Math.floor(Math.random() * (maxY - minY) + minY)
+                    }
                 });
 
                 ++num;

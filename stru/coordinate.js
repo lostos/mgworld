@@ -5,9 +5,15 @@
     mg.stru = mg.stru || {};
     mg.stru.Coordinate = mg.Class.extend({
         ctor: function (x, y, z) {
-            this.x = x || 0;
-            this.y = y || 0;
-            this.z = z || 0;
+            if (typeof x === 'object') {
+                this.x = x.x || 0;
+                this.y = x.y || 0;
+                this.z = x.z || 0;
+            } else {
+                this.x = x || 0;
+                this.y = y || 0;
+                this.z = z || 0;
+            }
         },
         coordinates: function (i) {
             switch (i) {

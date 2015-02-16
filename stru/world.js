@@ -2,12 +2,14 @@
 
 (function () {
 
-    var ObjectBase = require(__base + 'obj/base');
-
     /* World */
     mg.stru = mg.stru || {};
     mg.stru.World = mg.Class.extend({
         ctor: function (args) {
+            if (args.xIndex == null || args.yIndex == null) {
+                throw '缺少参数 xIndex, yIndex.';
+            }
+
             this.xIndex = args.xIndex;
             this.yIndex = args.yIndex;
 
@@ -25,7 +27,7 @@
         get: function (x, y) {
             var result = [];
             this.objects.forEach(function (obj) {
-                if (obj.x == x && obj.y == y) {
+                if (obj.position.x == x && obj.position.y == y) {
                     result.push(obj);
                 }
             });
@@ -71,7 +73,7 @@
             }
         },
         addObject: function (obj) {
-            var index = this._xyToIndex(obj.x, obj.y);
+            var index = this._xyToIndex(obj.position.x, obj.position.y);
             var key = this._indexToKey(index.xIndex, index.yIndex);
             var world = this.mapWorld[key];
             if (!world) {

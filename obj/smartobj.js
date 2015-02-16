@@ -32,7 +32,7 @@
 
             switch (act.type) {
                 case 'moveto':
-                    act.time = (act.time || 0) + ticks;
+                    act.time = (act.time || 0) + ticks * mg.config.obj.moveSpeed;
                     var route = act.routes[0];
                     if (act.time >= route.cost) {
                         this.position.x = route.x;

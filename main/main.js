@@ -2,8 +2,6 @@
 
 (function () {
 
-    var Loader = require(__base + 'data/loader');
-
     mg.main = mg.main || {};
     mg.main.Main = mg.Class.extend({
         ctor: function () {
@@ -17,6 +15,8 @@
             this.worldCollection.addObject(object);
         },
         run: function () {
+            var _this = this;
+
             mg.util.MapGener.generate({
                 'minX': 0,
                 'maxX': 100,
@@ -35,8 +35,10 @@
             this.loader.loadWorld({
                 'xIndex': 0,
                 'yIndex': 0
-            }, function (world) {
-                this.worldCollection.add(world);
+            }, function (objs) {
+                objs.forEach(function (obj) {
+                    _this.worldCollection.addObject(obj);
+                });
             });
 
             // 启动AI
@@ -46,19 +48,22 @@
                         main.strategyAI.update(obj);
                     });
                 });
-            }, mg.config.freq.ai, this);
+            }, mg.config.freq.ai * 1000, this);
 
             // 启动刷新
             var lastUpdateDate = new Date();
             setInterval(function (main) {
+                var now = new Date();
+                var t = (now - lastUpdateDate ) / 1000;
+                lastUpdateDate = now;
                 main.worldCollection.each(function (world) {
                     world.each(function (obj) {
                         if (obj instanceof mg.obj.SmartObj) {
-                            obj.update((new Date() - lastUpdateDate) / 1000);
+                            obj.update(t);
                         }
                     });
                 });
-            }, mg.config.freq.update, this);
+            }, mg.config.freq.update * 1000, this);
         }
     });
 })();
