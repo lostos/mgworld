@@ -43,6 +43,7 @@
                     if (act.time >= route.cost) {
                         this.position.x = route.x;
                         this.position.y = route.y;
+                        act.time = 0;
 
                         act.routes.splice(0, 1);
                         if (act.routes.length <= 0) {

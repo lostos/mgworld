@@ -20,6 +20,7 @@
                 if (obj.moveable && obj.state == mg.obj.state.IDLE) {
                     var routes = this.pathFinding.getRoute(obj.position, target.position);
                     obj.addAction({
+                        'id': mg.util.ComUtil.genId('act'),
                         'type': 'moveto',
                         'routes': routes
                     });

@@ -6,17 +6,18 @@
     mg.network.NetworkHandler = mg.Class.extend({
         ctor: function (args) {
             this.main = args.main;
-            this.clients = [];
+            this.clients = {};
+            this.actionMap = {}; // 已推送过的action
 
             setInterval(this.update, mg.config.freq.push * 1000, this);
         },
-        onReceiveMessage: function (msg, sendMsgFunc) {
+        onMessage: function (connId, msg, sendMsgFunc) {
             switch (msg.t) {
                 case 'reg':
-                    this.clients.push({
+                    this.clients[connId] = {
                         'region': msg.r,
                         'sendFunc': sendMsgFunc
-                    });
+                    };
                     break;
                 case 'map':
                     var tmx = new mg.util.TMXMap(__base + 'res/tmxtemplate');
@@ -32,16 +33,21 @@
                     break;
             }
         },
+        onClose: function (connId, reasonCode, description) {
+            delete this.clients[connId];
+        },
         update: function (_this) {
-            _this.clients.forEach(function (client) {
+            for (var i in _this.clients) {
+                var client = _this.clients[i];
                 client.sendFunc.apply(this, [{
                     't': 'regionData',
                     'r': client.region,
                     'data': _this._getUpdateData(_this.main.worldCollection)
                 }]);
-            });
+            }
         },
         _getUpdateData: function (worldCollection) {
+            var _this = this;
             if (null == worldCollection) {
                 return null;
             }
@@ -54,9 +60,20 @@
                     'm': obj.moveable ? '1' : '0'
                 };
                 if (obj.moveable) {
-                    d.act = obj.action.current
+                    var action = obj.action.current;
+                    if (action) {
+                        var lastActionId = _this.actionMap[obj._id];
+                        if (lastActionId != action.id) {
+                            _this.actionMap[obj._id] = action.id;
+
+                            d.act = action;
+                            data.push(d);
+                        }
+                    }
+
+                } else {
+                    data.push(d);
                 }
-                data.push(d);
             });
 
             return data;

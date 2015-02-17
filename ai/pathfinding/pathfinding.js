@@ -28,7 +28,7 @@
                 route.push({
                     'x': pos.x,
                     'y': pos.y,
-                    'cost': pos.cost
+                    'cost': pos.dir ? pos.dir.cost : 0
                 });
                 pos = pos.prev;
             }
@@ -75,6 +75,7 @@
                     var nextPos = {
                         'x': pos.x + dir.x,
                         'y': pos.y + dir.y,
+                        'dir': dir,
                         'cost': pos.cost + dir.cost // 从起点到节点y的距离
                     };
                     nextPos.dist = _this._getDistance(nextPos, targetPos);
