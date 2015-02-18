@@ -8,9 +8,11 @@
         initCounter: function () {
             var collection = mg.database.collection('counters');
             collection.find().toArray(function (err, docs) {
-                docs.forEach(function (doc) {
-                    idCounter[doc._id] = doc.seq;
-                });
+                if(err == null) {
+                    docs.forEach(function (doc) {
+                        idCounter[doc._id] = doc.seq;
+                    });
+                }
             });
         },
         saveCounter: function () {
